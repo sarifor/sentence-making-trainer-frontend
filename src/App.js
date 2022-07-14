@@ -6,7 +6,13 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<div><p>hi</p></div>}>
+          <Route path="/records" element={<div><p>home</p></div>}>
+          </Route>
+          <Route path="/upload" element={<div><p>upload</p></div>}>
+          </Route>
+          <Route path="/:index/edit" element={<div><p>edit</p></div>}>
+          </Route>
+          <Route path="/:index/delete" element={<div><p>delete</p></div>}>            
           </Route>
         </Routes>
       </BrowserRouter>
