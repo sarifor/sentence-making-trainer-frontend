@@ -1,8 +1,8 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Redirect } from "react-router-dom";
 import Home from "./Home";
 import Upload from "./Upload";
 import Edit from "./Edit";
-import Delete from "./Delete";
+// import Delete from "./Delete";
 
 function App() {
   return (
@@ -15,7 +15,9 @@ function App() {
           </Route>
           <Route path="/records/:index/edit" element={<Edit />}>
           </Route>
-          <Route path="/records/:index/delete" element={<Delete />}>
+          <Route path="/records/:index/delete">
+            {/* Execute Delete Logic*/}
+            <Redirect to="/records" />            
           </Route>
         </Routes>
       </BrowserRouter>
