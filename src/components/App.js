@@ -1,4 +1,3 @@
-import '../styles/App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Home";
 import Upload from "./Upload";
