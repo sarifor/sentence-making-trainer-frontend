@@ -1,4 +1,12 @@
+import { useNavigate } from "react-router-dom";
+import { uploadRecord } from "../data";
+
 function Upload() {
+  const tempSentence = "eee";
+  const tempSource = "fff";
+
+  let navigate = useNavigate();
+
   return (
     <div className="Upload">
       <div className="table__top">
@@ -20,8 +28,13 @@ function Upload() {
           </div>
 
           <div className="form__buttons">
-            <input className="btn" type="submit" value="Upload" />
-            <input className="btn" type="submit" value="Cancel" />
+            <input className="btn" value="Upload" onClick={() => {
+              uploadRecord(tempSentence, tempSource);
+              navigate("/records");
+            }}/>
+            <input className="btn" value="Cancel" onClick={() => {
+              navigate("/records");
+            }} />
           </div>
         </form>
       </div>

@@ -1,5 +1,11 @@
 function Home() {
-  const records = "temporary value";
+  const records = {
+    index: 1,
+    sentence: "aaa",
+    translated: "bbb",
+    source: "ccc",
+    uploaded: "ddd",
+  };
 
   return (
     <div className="Home">
@@ -21,11 +27,11 @@ function Home() {
 
         {records ? (
           <>
-            <div><h4>value</h4></div>
-            <div><h4>value</h4></div>
-            <div><h4>value</h4></div>
-            <div><h4>value</h4></div>
-            <div><h4>value</h4></div>          
+            <div><h4><a href={`/records/${records.index}/edit`}>{records.index}</a></h4></div>
+            <div><h4>{records.sentence}</h4></div>
+            <div><h4>{records.translated}</h4></div>
+            <div><h4>{records.source}</h4></div>
+            <div><h4>{records.uploaded}</h4></div>          
           </>
         ) : (
           <div><h4>No Value yet</h4></div>
