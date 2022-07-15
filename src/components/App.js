@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Redirect } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Home";
 import Upload from "./Upload";
 import Edit from "./Edit";
@@ -14,10 +14,6 @@ function App() {
           <Route path="/records/upload" element={<Upload />}>
           </Route>
           <Route path="/records/:index/edit" element={<Edit />}>
-          </Route>
-          <Route path="/records/:index/delete">
-            {/* Execute Delete Logic*/}
-            <Redirect to="/records" />            
           </Route>
         </Routes>
       </BrowserRouter>

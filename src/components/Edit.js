@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 function Edit() {
   const records = {
     index: 1,
@@ -6,6 +8,13 @@ function Edit() {
     source: "ccc",
     uploaded: "ddd",
   }
+
+  let navigate = useNavigate();
+
+  const deleteRecord = (index) => {
+    console.log(index);
+    navigate("/records", {replace : true});
+  };
 
   return (
     <div className="Edit">
@@ -37,7 +46,7 @@ function Edit() {
 
             <div className="form__buttons">
               <input className="btn" type="submit" value="Update" />
-              <a className="btn" href={`/records/${records.index}/delete`}>Delete</a>
+              <input className="btn" value="Delete" onClick={() => deleteRecord(records.index)} />
             </div>
           </form>
         </div>
