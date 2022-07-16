@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { deleteRecord, editRecord } from "../data";
 
 function Edit() {
   const records = {
@@ -11,6 +10,14 @@ function Edit() {
   }
 
   let navigate = useNavigate();
+  
+  function editRecord(records) {
+    console.log(records);
+  }
+
+  function deleteRecord(index) {
+    console.log(index);
+  }
 
   return (
     <div className="Edit">

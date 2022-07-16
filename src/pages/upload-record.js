@@ -1,11 +1,14 @@
 import { useNavigate } from "react-router-dom";
-import { uploadRecord } from "../data";
 
 function Upload() {
   const tempSentence = "eee";
   const tempSource = "fff";
 
   let navigate = useNavigate();
+
+  function uploadRecord(firstValue, secondValue) {
+    console.log(firstValue, secondValue);
+  }
 
   return (
     <div className="Upload">
