@@ -1,3 +1,5 @@
+import { useQuery, gql } from '@apollo/client';
+
 function Home() {
   const records = {
     index: 1,
@@ -6,6 +8,23 @@ function Home() {
     source: "ccc",
     uploaded: "ddd",
   };
+
+  const GET_RECORDS = gql`
+    {
+      showAllRecords {
+        records {
+          index
+          sentence
+          translated
+          source
+          uploaded
+        }
+      }
+    }
+  `
+
+  const result = useQuery(GET_RECORDS);
+  console.log(result);
 
   return (
     <div className="Home">
