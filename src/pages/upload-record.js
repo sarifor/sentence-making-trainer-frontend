@@ -1,10 +1,24 @@
 import { useNavigate } from "react-router-dom";
+import { useMutation, gql } from '@apollo/client';
 
 function Upload() {
   const tempSentence = "eee";
   const tempSource = "fff";
 
   let navigate = useNavigate();
+
+  const UPLOAD_RECORD = gql`
+    mutation {
+      uploadRecord(record: {
+        sentence: "Finally done"
+        source: "me"
+      }) {
+        ok
+      }
+    }
+  `
+
+  useMutation(UPLOAD_RECORD);
 
   function uploadRecord(firstValue, secondValue) {
     console.log(firstValue, secondValue);
