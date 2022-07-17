@@ -8,21 +8,14 @@ function Upload() {
   let navigate = useNavigate();
 
   const UPLOAD_RECORD = gql`
-    mutation {
-      uploadRecord(record: {
-        sentence: "Finally done"
-        source: "me"
-      }) {
+    mutation uploadRecord($record: UploadRecordDtoInput!) {
+      uploadRecord(record: $record) {
         ok
       }
     }
   `
 
-  useMutation(UPLOAD_RECORD);
-
-  function uploadRecord(firstValue, secondValue) {
-    console.log(firstValue, secondValue);
-  }
+  const [uploadRecord] = useMutation(UPLOAD_RECORD);
 
   return (
     <div className="Upload">
@@ -36,7 +29,17 @@ function Upload() {
       </div>
 
       <div className="form">
-        <form method="POST" enctype="application/x-www-form-urlencoded">
+        <form method="POST" enctype="application/x-www-form-urlencoded" onSubmit={e => {
+          e.preventDefault();
+          uploadRecord({ 
+            variables: { 
+              record: { 
+                sentence: "Finally done", 
+                source: "me", 
+              }
+            }
+          });
+        }}>
           <div className="form__input">
             <label>Sentence</label>
             <input name="sentence" type="text" />
@@ -53,6 +56,7 @@ function Upload() {
               navigate("/records");
             }} />
           </div>
+          <button type="submit">Upload to GraphQL API Server</button>
         </form>
       </div>
     </div>
