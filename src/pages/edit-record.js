@@ -4,14 +4,6 @@ import { useQuery, gql } from '@apollo/client';
 function Edit() {
   // let navigate = useNavigate();
 
-  const recordTemp = {
-    index: 1,
-    sentence: "aaa",
-    translated: "bbb",
-    source: "ccc",
-    uploaded: "ddd",
-  }  
-
   // Get parameter
   const params = useParams();
   const index = parseInt(params.index);
