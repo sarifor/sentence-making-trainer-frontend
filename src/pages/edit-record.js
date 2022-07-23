@@ -31,15 +31,17 @@ function Edit() {
     }
   `
   
-  const { data } = useQuery(GET_RECORD, {
+  const { loading, error, data } = useQuery(GET_RECORD, {
     variables: { index: index },
   });
   
+  if (loading) return <p>Loading ...</p>;
+
+  if (error) return <p>${error.message}</p>
+
   if (data) {
     const record = data.getRecord.record;
     console.log(record); 
-  } else {
-    console.log("wating for data");
   }
 
   return (
