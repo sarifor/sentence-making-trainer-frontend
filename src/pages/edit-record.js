@@ -34,8 +34,13 @@ function Edit() {
   const { data } = useQuery(GET_RECORD, {
     variables: { index: index },
   });
-  const record = data.getRecord.record;
-  console.log(record);
+  
+  if (data) {
+    const record = data.getRecord.record;
+    console.log(record); 
+  } else {
+    console.log("wating for data");
+  }
 
   return (
     <div className="Edit">
