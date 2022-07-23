@@ -1,23 +1,32 @@
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { useQuery, gql } from '@apollo/client';
 
 function Edit() {
-  const records = {
-    index: 1,
-    sentence: "aaa",
-    translated: "bbb",
-    source: "ccc",
-    uploaded: "ddd",
-  }
-
   let navigate = useNavigate();
-  
-  function editRecord(records) {
-    console.log(records);
-  }
 
-  function deleteRecord(index) {
-    console.log(index);
-  }
+  // Get parameter
+  const params = useParams();
+  const index = parseInt(params.index);
+
+  // Use DB
+  const GET_RECORD = gql`
+    query GetRecord($index: Float!) {
+      getRecord(index: $index) {
+        record {
+          index
+          sentence
+          translated
+          source
+          uploaded
+        }
+      }
+    }
+  `
+  
+  const record = useQuery(GET_RECORD, {
+    variables: { index: index },
+  });
+  console.log(record);
 
   return (
     <div className="Edit">
@@ -30,30 +39,30 @@ function Edit() {
         </a>
       </div>
 
-      {records ? (
+      {record ? (
         <div className="form">
           <form method="POST" enctype="application/x-www-form-urlencoded">
             <div className="form__input">
               <label>Sentence:</label>
-              <input name="sentence" type="text" value={records.sentence} />
+              <input name="sentence" type="text" value={record.sentence} />
 
               <label>Translated:</label>
-              <input name="translated" type="text" value={records.translated} />
+              <input name="translated" type="text" value={record.translated} />
 
               <label>Source:</label>
-              <input name="source" type="text" value={records.source} />
+              <input name="source" type="text" value={record.source} />
 
               <label>Uploaded:</label>
-              <span name="uploaded" type="text">{records.uploaded}</span>
+              <span name="uploaded" type="text">{record.uploaded}</span>
             </div>
 
             <div className="form__buttons">
               <input className="btn" value="Update" onClick={() => {
-                editRecord(records);
+                // editRecord(record);
                 navigate("/records");                
               }} />
               <input className="btn" value="Delete" onClick={() => {
-                deleteRecord(records.index);
+                // deleteRecord(record.index);
                 navigate("/records");
               }} />
             </div>
