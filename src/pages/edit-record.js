@@ -1,5 +1,5 @@
 import { useParams, } from "react-router-dom";
-import { useQuery, gql } from '@apollo/client';
+import { useQuery, useMutation, gql } from '@apollo/client';
 
 function Edit() {
   // let navigate = useNavigate();
@@ -22,11 +22,20 @@ function Edit() {
       }
     }
   `
-  
+  const EDIT_RECORD = gql`
+    mutation editRecord($editedRecord: EditRecordDtoInput) {
+      editRecord(editedRecord: $editedRecord) {
+        error
+        ok
+      }
+    }
+  `
   const { loading, error, data } = useQuery(GET_RECORD, {
     variables: { index: index },
   });
   
+  const [editRecord] = useMutation(EDIT_RECORD);
+
   if (loading) {
     return <p>Loading ...</p>;
   } else {
@@ -47,7 +56,17 @@ function Edit() {
         </div>
   
         <div className="form">
-          <form method="POST" enctype="application/x-www-form-urlencoded">
+          <form method="POST" enctype="application/x-www-form-urlencoded" onSubmit={e => {
+          e.preventDefault();
+          editRecord({ 
+            variables: { 
+              record: { 
+                index: 35,
+                translated: "from graphql",
+              }
+            }
+          });
+        }}>
             <div className="form__input">
               <label>Sentence:</label>
               <input name="sentence" type="text" value={record.sentence} />
@@ -62,16 +81,21 @@ function Edit() {
               <span name="uploaded" type="text">{record.uploaded}</span>
             </div>
 
-            {/* <div className="form__buttons">
+            <div className="form__buttons">
               <input className="btn" value="Update" onClick={() => {
-                // editRecord(record);
-                navigate("/records");                
+                editRecord({
+                  variables: {
+                    index: 34,
+                    translated: "test",
+                  }
+                });
+                // navigate("/records");                
               }} />
-              <input className="btn" value="Delete" onClick={() => {
+              {/* <input className="btn" value="Delete" onClick={() => {
                 // deleteRecord(record.index);
                 navigate("/records");
-              }} />
-            </div> */}
+              }} /> */}
+            </div>
           </form>
         </div>
       </div>
