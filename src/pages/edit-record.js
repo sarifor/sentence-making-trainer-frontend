@@ -8,7 +8,7 @@ function Edit() {
   const params = useParams();
   const index = parseInt(params.index);
 
-  // Use DB
+  // GQL
   const GET_RECORD = gql`
     query GetRecord($index: Float!) {
       getRecord(index: $index) {
@@ -23,19 +23,23 @@ function Edit() {
     }
   `
   const EDIT_RECORD = gql`
-    mutation editRecord($editedRecord: EditRecordDtoInput) {
+    mutation editRecord($editedRecord: EditRecordDtoInput!) {
       editRecord(editedRecord: $editedRecord) {
         error
         ok
       }
     }
   `
+
+  // Access DB
   const { loading, error, data } = useQuery(GET_RECORD, {
     variables: { index: index },
   });
-  
+
   const [editRecord] = useMutation(EDIT_RECORD);
 
+
+  // Rendering
   if (loading) {
     return <p>Loading ...</p>;
   } else {
@@ -60,7 +64,7 @@ function Edit() {
           e.preventDefault();
           editRecord({ 
             variables: { 
-              record: { 
+              editedRecord: {
                 index: 35,
                 translated: "from graphql",
               }
@@ -81,7 +85,7 @@ function Edit() {
               <span name="uploaded" type="text">{record.uploaded}</span>
             </div>
 
-            <div className="form__buttons">
+            {/* <div className="form__buttons">
               <input className="btn" value="Update" onClick={() => {
                 editRecord({
                   variables: {
@@ -89,13 +93,14 @@ function Edit() {
                     translated: "test",
                   }
                 });
-                // navigate("/records");                
+                navigate("/records");                
               }} />
-              {/* <input className="btn" value="Delete" onClick={() => {
+              <input className="btn" value="Delete" onClick={() => {
                 // deleteRecord(record.index);
                 navigate("/records");
-              }} /> */}
-            </div>
+              }} />
+            </div> */}
+            <button type="submit">Send edited data</button>
           </form>
         </div>
       </div>
