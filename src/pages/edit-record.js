@@ -1,8 +1,16 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, } from "react-router-dom";
 import { useQuery, gql } from '@apollo/client';
 
 function Edit() {
-  let navigate = useNavigate();
+  // let navigate = useNavigate();
+
+  const recordTemp = {
+    index: 1,
+    sentence: "aaa",
+    translated: "bbb",
+    source: "ccc",
+    uploaded: "ddd",
+  }  
 
   // Get parameter
   const params = useParams();
@@ -23,9 +31,10 @@ function Edit() {
     }
   `
   
-  const record = useQuery(GET_RECORD, {
+  const { data } = useQuery(GET_RECORD, {
     variables: { index: index },
   });
+  const record = data.getRecord.record;
   console.log(record);
 
   return (
@@ -39,24 +48,24 @@ function Edit() {
         </a>
       </div>
 
-      {record ? (
+      {recordTemp ? (
         <div className="form">
           <form method="POST" enctype="application/x-www-form-urlencoded">
             <div className="form__input">
               <label>Sentence:</label>
-              <input name="sentence" type="text" value={record.sentence} />
+              <input name="sentence" type="text" value={recordTemp.sentence} />
 
               <label>Translated:</label>
-              <input name="translated" type="text" value={record.translated} />
+              <input name="translated" type="text" value={recordTemp.translated} />
 
               <label>Source:</label>
-              <input name="source" type="text" value={record.source} />
+              <input name="source" type="text" value={recordTemp.source} />
 
               <label>Uploaded:</label>
-              <span name="uploaded" type="text">{record.uploaded}</span>
+              <span name="uploaded" type="text">{recordTemp.uploaded}</span>
             </div>
 
-            <div className="form__buttons">
+            {/* <div className="form__buttons">
               <input className="btn" value="Update" onClick={() => {
                 // editRecord(record);
                 navigate("/records");                
@@ -65,7 +74,7 @@ function Edit() {
                 // deleteRecord(record.index);
                 navigate("/records");
               }} />
-            </div>
+            </div> */}
           </form>
         </div>
       ) : (
