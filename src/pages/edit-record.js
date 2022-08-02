@@ -1,8 +1,8 @@
-import { useParams, } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useQuery, useMutation, gql } from '@apollo/client';
 
 function Edit() {
-  // let navigate = useNavigate();
+  let navigate = useNavigate();
 
   // Get parameter
   const params = useParams();
@@ -30,6 +30,13 @@ function Edit() {
       }
     }
   `
+  const DELETE_RECORD = gql`
+    mutation deleteRecord($index: Float!) {
+      deleteRecord(index: $index) {
+        ok
+      }
+    }
+  `
 
   // Access DB
   const { loading, error, data } = useQuery(GET_RECORD, {
@@ -37,6 +44,8 @@ function Edit() {
   });
 
   const [editRecord] = useMutation(EDIT_RECORD);
+
+  const [deleteRecord] = useMutation(DELETE_RECORD);
 
 
   // Rendering
@@ -47,6 +56,12 @@ function Edit() {
 
     const record = data.getRecord.record;
     console.log(record);
+
+    const handleClick = () => {
+      console.log("method comming")
+      deleteRecord(35);
+      navigate("/records");
+    };
 
     return (
       <div className="Edit">
@@ -85,21 +100,10 @@ function Edit() {
               <span name="uploaded" type="text">{record.uploaded}</span>
             </div>
 
-            {/* <div className="form__buttons">
-              <input className="btn" value="Update" onClick={() => {
-                editRecord({
-                  variables: {
-                    index: 34,
-                    translated: "test",
-                  }
-                });
-                navigate("/records");                
-              }} />
-              <input className="btn" value="Delete" onClick={() => {
-                // deleteRecord(record.index);
-                navigate("/records");
-              }} />
-            </div> */}
+            <div className="form__buttons">         
+              <input className="btn" value="Delete" onClick={() => handleClick()} />
+            </div>
+
             <button type="submit">Send edited data</button>
           </form>
         </div>
