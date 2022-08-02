@@ -45,7 +45,7 @@ function Home() {
           {records ? (
             records.map((record) => 
               <>
-                <div><h4><a href={`/records/${records.index}/edit`}>{record.index}</a></h4></div>
+                <div><h4><a href={`/records/${record.index}/edit`}>{record.index}</a></h4></div>
                 <div><h4>{record.sentence}</h4></div>
                 <div><h4>{record.translated}</h4></div>
                 <div><h4>{record.source}</h4></div>

@@ -55,7 +55,20 @@ function Edit() {
     if (error) return <p>${error.message}</p>
 
     const record = data.getRecord.record;
-    console.log(record);
+
+    const handleEditClick = () => {
+      editRecord({ 
+        variables: { 
+          editedRecord: {
+            index: index,
+            sentence: "test",
+            translated: "test2",
+            source: "test3",
+          }
+        }
+      });      
+      navigate("/records");
+    }
 
     const handleClick = () => {
       console.log("method comming")
@@ -81,14 +94,6 @@ function Edit() {
         <div className="form">
           <form method="POST" enctype="application/x-www-form-urlencoded" onSubmit={e => {
           e.preventDefault();
-          editRecord({ 
-            variables: { 
-              editedRecord: {
-                index: 35,
-                translated: "from graphql",
-              }
-            }
-          });
         }}>
             <div className="form__input">
               <label>Sentence:</label>
@@ -105,10 +110,13 @@ function Edit() {
             </div>
 
             <div className="form__buttons">         
+              <input className="btn" value="Edit" onClick={() => handleEditClick()} />
+            </div>
+
+            <div className="form__buttons">         
               <input className="btn" value="Delete" onClick={() => handleClick()} />
             </div>
 
-            <button type="submit">Send edited data</button>
           </form>
         </div>
       </div>
