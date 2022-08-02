@@ -59,7 +59,11 @@ function Edit() {
 
     const handleClick = () => {
       console.log("method comming")
-      deleteRecord(35);
+      deleteRecord({
+        variables: {
+          index: 37,
+        }
+      });
       navigate("/records");
     };
 
