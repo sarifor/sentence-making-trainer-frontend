@@ -45,14 +45,13 @@ function Edit() {
   });
 
   const [editRecord] = useMutation(EDIT_RECORD);
-
   const [deleteRecord] = useMutation(DELETE_RECORD);
 
   // useForm
   const { register, handleSubmit } = useForm();
-  const onSubmit = data => {
-    console.log(data);
 
+  // Edit data
+  const handleEdit = data => {
     editRecord({
       variables: {
         editedRecord: {
@@ -63,7 +62,17 @@ function Edit() {
         },
       }
     });
-    
+
+    navigate("/records");
+  };
+
+  // Delete data
+  const handleDelete = () => {
+    deleteRecord({
+      variables: {
+        index: index,
+      }
+    });
     navigate("/records");
   };
 
@@ -74,30 +83,6 @@ function Edit() {
     if (error) return <p>${error.message}</p>
 
     const record = data.getRecord.record;
-
-    /* const handleEditClick = () => {
-      editRecord({ 
-        variables: { 
-          editedRecord: {
-            index: index,
-            sentence: "test",
-            translated: "test2",
-            source: "test3",
-          }
-        }
-      });      
-      navigate("/records");
-    } */
-
-    const handleClick = () => {
-      console.log("method comming")
-      deleteRecord({
-        variables: {
-          index: 37,
-        }
-      });
-      navigate("/records");
-    };
 
     return (
       <div className="Edit">
@@ -111,7 +96,7 @@ function Edit() {
         </div>
   
         <div className="form">
-          <form method="POST" enctype="application/x-www-form-urlencoded" onSubmit={handleSubmit(onSubmit)}>
+          <form method="POST" enctype="application/x-www-form-urlencoded" onSubmit={handleSubmit(handleEdit)}>
             <div className="form__input">
               <label>Sentence:</label>
               <input name="sentence" type="text" defaultValue={record.sentence} {...register("sentence")} />
@@ -131,7 +116,7 @@ function Edit() {
             </div>
 
             <div className="form__buttons">         
-              <input className="btn" value="Delete" onClick={() => handleClick()} />
+              <input className="btn" value="Delete" onClick={() => handleDelete()} />
             </div>
 
           </form>
