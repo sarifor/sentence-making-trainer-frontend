@@ -14,7 +14,7 @@ function Upload() {
 
   const [uploadRecord] = useMutation(UPLOAD_RECORD);
 
-  const handleClick = () => {
+  const handleUpload = () => {
     const sentence = document.getElementById("sentence");
     const source = document.getElementById("source");    
 
@@ -52,7 +52,7 @@ function Upload() {
           </div>
 
           <div className="form__buttons">
-            <input className="btn" value="Upload" onClick={() => handleClick()} />
+            <input className="btn" value="Upload" onClick={() => handleUpload()} />
             <input className="btn" value="Cancel" onClick={() => {
               navigate("/records");
             }} />
