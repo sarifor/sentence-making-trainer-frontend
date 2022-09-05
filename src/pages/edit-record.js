@@ -112,10 +112,7 @@ function Edit() {
             </div>
 
             <div className="form__buttons">
-              <input type="submit" className="btn" value="Edit" />
-            </div>
-
-            <div className="form__buttons">         
+              <input type="submit" className="btn" value="Edit" />     
               <input className="btn" value="Delete" onClick={() => handleDelete()} />
             </div>
 
