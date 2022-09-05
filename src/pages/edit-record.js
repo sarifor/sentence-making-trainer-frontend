@@ -23,14 +23,14 @@ function Edit() {
       }
     }
   `
-  /* const EDIT_RECORD = gql`
+  const EDIT_RECORD = gql`
     mutation editRecord($editedRecord: EditRecordDtoInput!) {
       editRecord(editedRecord: $editedRecord) {
         error
         ok
       }
     }
-  `*/
+  `
   const DELETE_RECORD = gql`
     mutation deleteRecord($index: Float!) {
       deleteRecord(index: $index) {
@@ -44,13 +44,28 @@ function Edit() {
     variables: { index: index },
   });
 
-  // const [editRecord] = useMutation(EDIT_RECORD);
+  const [editRecord] = useMutation(EDIT_RECORD);
 
   const [deleteRecord] = useMutation(DELETE_RECORD);
 
   // useForm
   const { register, handleSubmit } = useForm();
-  const onSubmit = data => console.log(data);
+  const onSubmit = data => {
+    console.log(data);
+
+    editRecord({
+      variables: {
+        editedRecord: {
+          index: index,
+          sentence: data.sentence,
+          source: data.source,
+          translated: data.translated,
+        },
+      }
+    });
+    
+    navigate("/records");
+  };
 
   // Rendering
   if (loading) {
