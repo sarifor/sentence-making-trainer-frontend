@@ -1,8 +1,6 @@
 import { useQuery, gql } from '@apollo/client';
 
-function Home() {
-  console.log("Here is home.js");
-  
+function Home() { 
   const GET_RECORDS = gql`
     {
       showAllRecords {
