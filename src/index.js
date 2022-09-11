@@ -6,7 +6,7 @@ import App from './components/app';
 import reportWebVitals from './reportWebVitals';
 
 const client = new ApolloClient({
-  uri: process.env.DATABASE_URL,
+  uri: 'https://arcane-atoll-72392.herokuapp.com/graphql',
   cache: new InMemoryCache(),
 })
 
