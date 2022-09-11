@@ -17,8 +17,8 @@ function Upload() {
   const handleUpload = () => {
     const sentence = document.getElementById("sentence");
     const source = document.getElementById("source");
-    console.log(sentence);
-    console.log(source);    
+    console.log(sentence.value);
+    console.log(source.value);    
 
     uploadRecord({ 
       variables: { 
